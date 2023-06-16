@@ -4,11 +4,29 @@ from time import sleep
 # displays results
 
 run_amount = 0
-simulator_menu_options = {1: 'Run', 2: 'Number of runs'}
+simulator_menu_options = {1: 'Run', 2: 'Number of runs', 3: 'Return'}
+
 def print_menu():
-    for key in simulator_menu_options():
+    for key in simulator_menu_options.keys():
         print(key, '--', simulator_menu_options[key])
 
-def simulator():
-    print('inside simulator')
-    print_menu()
+def simulator():    
+    while(True):
+        print_menu()
+        try:
+            option = int(input('Enter choice: '))
+        except ValueError:
+            print("invalid input")
+            continue
+        if option == 1:
+            pass
+        elif option == 2:
+            pass
+        # return to main menu
+        elif option == 3:
+            sleep(0.1)
+            os.system('cls')
+            return
+        else:
+            print('invalid menu option')
+            

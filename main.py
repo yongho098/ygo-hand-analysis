@@ -2,7 +2,7 @@ import os
 from time import sleep
 from parameters import set_parameter
 from simulator import simulator
-from deck_editor import deck_edit
+from deck_editor import deck_edit, card_object_list
 
 # card pool-api
 # deck creator-import option
@@ -75,7 +75,7 @@ def main_menu():
     elif option == 3:
         sleep(0.1)
         os.system('cls')
-        set_parameter()
+        set_parameter(card_object_list)
     elif option == 4:
         quit()
     else:

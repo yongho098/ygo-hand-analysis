@@ -66,6 +66,8 @@ Side
 3 Solemn Judgment
 """
 output = {}
+outputmd = {}
+deck_list = []
 newtest = """Monster
 1 Dinowrestler Pankratops
 2 Kashtira Fenrir
@@ -94,9 +96,17 @@ ls = newtest2.split("\n")
 
 def parser(decklist):
     for i in range(len(decklist)-1):
-        print(decklist[i])
-        if decklist[i][0].isnumeric():
+        # print(decklist[i])
+        if decklist[i] == 'Extra':
+            # only add main deck
+            return
+        elif decklist[i][0].isnumeric():
             output[decklist[i][2:]] = int(decklist[i][0])
         
 parser(ls)
-# print(output)
+#print(ls)
+#print(output)
+
+for key in output:
+    deck_list.append(key)
+print(deck_list)
