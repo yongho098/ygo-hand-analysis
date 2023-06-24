@@ -1,16 +1,15 @@
 import os
 from time import sleep
 import pyperclip
+import json
+import pprint
 
-#sample dictionary
-test_dict = {'Kashtira Ogre': 1, 'Kashtira Unicorn': 2, 'Kashtira Fenrir': 3, 'Scareclaw Kashtira': 1, 
-         'Dimension Shifter': 3, 'Raidraptor - Tribute Lanius': 1, 'Kashtira Riseheart': 2, 
-         "Raider's Wing": 1, 'Ash Blossom & Joyous Spring': 2, 'Kashtiratheosis': 3, 'Pot of Prosperity': 3, 
-         'Terraforming': 1, 'Triple Tactics Talent': 3, 'Enemy Controller': 3, 'Kashtira Birth': 3, 
-         'Pressured Planet Wraitsoth': 3, 'Infinite Impermanence': 3, 
-         'Kashtira Big Bang': 1, 'Kashtira Preparations': 1}
+with open("decklists/example_decklist.json") as json_file:
+        json_data = json.load(json_file)
 
 # add an import from file option so user doesnt have to do manually every time
+#run create card when booting for default?
+# json for decklist, classifications? share same name so can identify
 
 deck_list = []
 deck_list_clean = []
@@ -21,32 +20,7 @@ card_subtype = []
 deck_dictionary_main = {}
 deck_dictionary_whole = {}
 
-# sample decklist-doesnt have any ed or side deck
-oldtest = """Monster
-1 Dinowrestler Pankratops
-2 Kashtira Fenrir
-1 Wandering Gryphon Rider
-3 Icejade Ran Aegirine
-3 Marincess Blue Tang
-2 Marincess Pascalus
-3 Marincess Springirl
-3 Water Enchantress of the Temple
-3 Marincess Sea Horse
-2 Marincess Mandarin
-Spell
-3 Dark Ruler No More
-2 Icejade Cradle
-2 Marincess Dive
-1 Rite of Aramesir
-3 Triple Tactics Talent
-3 Enemy Controller
-1 Fateful Adventure
-1 Marincess Battle Ocean
-1 Dracoback, the Rideable Dragon
-Trap
-1 Marincess Wave"""
-
-deck_edit_menu_options = {1: 'Edit/View Main Deck *Edit Not Implemented*', 2: 'Import Deck', 3: 'Return'}
+deck_edit_menu_options = {1: 'Select Deck', 2: 'Import Deck', 3: 'View Deck', 4: 'Return'}
 def print_menu():
     for key in deck_edit_menu_options.keys():
         print(key, '--', deck_edit_menu_options[key])
@@ -102,6 +76,10 @@ def create_card():
                 new_card.copy = i+1
                 new_card.amount = amount
                 card_object_list.append(new_card)
+
+def viewer(deck_dict):
+    pprint.pprint(deck_dict)
+    input("Viewing Deck List. Press Enter to continue.")
  
 # main function       
 def deck_edit():
@@ -110,9 +88,11 @@ def deck_edit():
         try:
             option = int(input('Enter choice: '))
         except ValueError:
+            sleep(0.1)
+            os.system('cls')
             print("invalid input")
             continue
-        # View Deck
+        # Select deck from decklist folder-already imported.
         if option == 1:
             sleep(0.1)
             os.system('cls')
@@ -121,6 +101,10 @@ def deck_edit():
             sleep(0.1)
             os.system('cls')
         # copies deck from clipboard, need to make sure only grabbing main deck
+        # assumes user isnt retarded and gives a proper format otherwise it wipes current decklist.
+        # should implement decklist select to circumvent? -load jsons
+        # if successful creation then write to a json
+        # should get submenu option or default to given decklist-select deck in parameters?
         elif option == 2:
             sleep(0.1)
             os.system('cls')
@@ -131,29 +115,39 @@ def deck_edit():
             os.system('cls')
             # this might cause an issue in formatting
             print('Importing Decklist')
+            deck_dictionary_main.clear()
+            card_object_list.clear()
             deck_list = input_decklist.split("\r\n")
             parser(deck_list, 'whole')
             parser(deck_list, 'main')
+            
             for key in deck_dictionary_main:
                 deck_list_clean.append(key)
             print(deck_dictionary_whole)
+            create_card()
             input('Imported Decklist. Press Enter to continue')
             sleep(0.1)
             os.system('cls')
             # parse and convert
             continue
-        # return to main menu
+        # view deck
         elif option == 3:
             sleep(0.1)
             os.system('cls')
-            create_card()
-            # for obj in card_object_list:
-            #     if obj.name == 'Kashtira Unicorn' or obj.name == 'Pressured Planet Wraitsoth' or obj.name == 'Terraforming':
-            #         obj.card_type = 'Starter'
-            #     print(f"{obj.name} -- {obj.card_type}")
-            # input('Press Enter to return')
+            viewer(deck_dictionary_main)
+            sleep(0.1)
+            os.system('cls')
+        # return to main menu
+        elif option == 4:
+            sleep(0.1)
+            os.system('cls')
             return
         # invalid option
         else:
+            sleep(0.1)
+            os.system('cls')
             print('invalid menu')
             continue
+
+deck_dictionary_main = json_data
+create_card()

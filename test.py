@@ -1,4 +1,10 @@
 import pyperclip
+import json
+import pprint
+
+with open("decklists/example_decklist.json") as json_file:
+        json_data = json.load(json_file)
+
 oldtest = """Monster
 1 Dinowrestler Pankratops
 2 Kashtira Fenrir
@@ -94,19 +100,4 @@ Trap
 ls = newtest2.split("\n")
 #print(ls)
 
-def parser(decklist):
-    for i in range(len(decklist)-1):
-        # print(decklist[i])
-        if decklist[i] == 'Extra':
-            # only add main deck
-            return
-        elif decklist[i][0].isnumeric():
-            output[decklist[i][2:]] = int(decklist[i][0])
-        
-parser(ls)
-#print(ls)
-#print(output)
-
-for key in output:
-    deck_list.append(key)
-print(deck_list)
+pprint.pprint({})

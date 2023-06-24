@@ -2,6 +2,7 @@ import os
 from time import sleep
 from deck_editor import deck_list_clean
 
+#add choose deck option, based on decklist folder
 parameter_menu_options = {1: 'Categorize', 2: 'Group', 3: 'Return'}
 categorizer_menu_options = {1: 'Edit Card', 2: 'Return'}
 grouper_menu_options = {}
@@ -41,6 +42,8 @@ def set_parameter(card_obj_list):
         try:
             option = int(input('Enter choice: '))
         except ValueError:
+            sleep(0.1)
+            os.system('cls')
             print("invalid input")
             continue
         # categorize
@@ -56,4 +59,6 @@ def set_parameter(card_obj_list):
             os.system('cls')
             return
         else:
+            sleep(0.1)
+            os.system('cls')
             print('invalid menu option')
