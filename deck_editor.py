@@ -27,19 +27,37 @@ def print_menu():
 
 def parser(decklist, mode):
     # might need 2 parser functions for whole and only main. or make a mode switch
-    # categorize on creation? should leave it to user
+    # add to local then overwrite real if valid
+    # categorize on creation? should leave it to 
+    global deck_dictionary_whole, deck_dictionary_main
     if mode == 'whole':
+        local_dict_whole = {}
         for i in range(len(decklist)-1):
             if decklist[i][0].isnumeric():
-                deck_dictionary_whole[decklist[i][2:]] = int(decklist[i][0])
+                local_dict_whole[decklist[i][2:]] = int(decklist[i][0])
+        # check if valid
+        #print(local_dict_whole)
+        if local_dict_whole != {}:
+            deck_dictionary_whole.clear()
+            deck_dictionary_whole = local_dict_whole.copy()
+            return 1
+        else:
+            return 0
     elif mode == 'main':
+        local_dict_main = {}
         for i in range(len(decklist)-1):
-            # print(decklist[i])
             if decklist[i] == 'Extra':
                 # only add main deck
-                return
+                break
             elif decklist[i][0].isnumeric():
-                deck_dictionary_main[decklist[i][2:]] = int(decklist[i][0])
+                local_dict_main[decklist[i][2:]] = int(decklist[i][0])
+        # return correct dictionary
+        if local_dict_main != {}:
+            deck_dictionary_main.clear()
+            deck_dictionary_main  = local_dict_main.copy()
+            return 1
+        else:
+            return 0
  
 # create objects for each card in main? allow user to assign/edit properties
 # class card
@@ -77,6 +95,36 @@ def create_card():
                 new_card.amount = amount
                 card_object_list.append(new_card)
 
+def deck_selector():
+    global deck_dictionary_main, card_object_list
+    options = os.listdir('decklists')
+    while(True):
+        for i in range(len(options)):
+            print(f"{i + 1} -- {options[i]}")
+        try:
+            selection = int(input('Select Decklist to Load: '))
+        except ValueError:
+            sleep(0.1)
+            os.system('cls')
+            print("invalid input")
+        if selection > len(options):
+            sleep(0.1)
+            os.system('cls')
+            print('invalid menu')
+            continue
+        else:
+            # load deck
+            select_path = f"decklists/{options[selection - 1]}"
+            input("selected deck. press any button to continue.")
+            with open(select_path) as json_file:
+                json_data = json.load(json_file)
+            deck_dictionary_main = json_data
+            card_object_list.clear()
+            create_card()
+            sleep(0.1)
+            os.system('cls')
+            return
+
 def viewer(deck_dict):
     pprint.pprint(deck_dict)
     input("Viewing Deck List. Press Enter to continue.")
@@ -94,42 +142,50 @@ def deck_edit():
             continue
         # Select deck from decklist folder-already imported.
         if option == 1:
+            # select deck
+            # change dictionary to it and create cards
             sleep(0.1)
             os.system('cls')
-            print(deck_dictionary_main)
-            input('Viewing Main Deck. Press Enter to continue')
-            sleep(0.1)
-            os.system('cls')
+            deck_selector()
+
         # copies deck from clipboard, need to make sure only grabbing main deck
-        # assumes user isnt retarded and gives a proper format otherwise it wipes current decklist.
         # should implement decklist select to circumvent? -load jsons
         # if successful creation then write to a json
         # should get submenu option or default to given decklist-select deck in parameters?
         elif option == 2:
+            # reformat into a function
+            # add an export to json option
             sleep(0.1)
             os.system('cls')
-            print('importing')
             input('Copy decklist into clipboard. Press Enter to continue')
             input_decklist = pyperclip.paste()
             sleep(0.1)
             os.system('cls')
-            # this might cause an issue in formatting
-            print('Importing Decklist')
-            deck_dictionary_main.clear()
-            card_object_list.clear()
             deck_list = input_decklist.split("\r\n")
             parser(deck_list, 'whole')
-            parser(deck_list, 'main')
+            success = parser(deck_list, 'main')
             
-            for key in deck_dictionary_main:
-                deck_list_clean.append(key)
-            print(deck_dictionary_whole)
-            create_card()
-            input('Imported Decklist. Press Enter to continue')
-            sleep(0.1)
-            os.system('cls')
-            # parse and convert
-            continue
+            if success == 1:
+                # valid decklist-create json
+                for key in deck_dictionary_main:
+                    deck_list_clean.append(key)
+                print(deck_dictionary_whole)
+                create_card()
+                json_object = json.dumps(deck_dictionary_main)
+                output_path = input("Input Decklist Name: ")
+                with open(f"decklists/{output_path}.json", "w") as outfile:
+                    outfile.write(json_object)
+                input('Imported Decklist. Press Enter to continue')
+                sleep(0.1)
+                os.system('cls')
+                continue
+            else:
+                # tried to add invalid deck
+                input("invalid deck. press enter to continue")
+                sleep(0.1)
+                os.system('cls')
+                continue
+
         # view deck
         elif option == 3:
             sleep(0.1)

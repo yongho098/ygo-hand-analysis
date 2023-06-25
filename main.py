@@ -23,7 +23,7 @@ from deck_editor import deck_edit, card_object_list
 # types: starter, bombs, defensive
 # engine number
 
-main_menu_options = {1: 'Run simulation', 2: 'Edit Deck', 3: 'Set Parameters', 4: 'Exit'}
+main_menu_options = {1: 'Run simulation', 2: 'Edit Deck', 3: 'Set Parameters *Not Implemented*', 4: 'Exit'}
 
 def print_menu():
     for key in main_menu_options.keys():
@@ -42,16 +42,18 @@ def main_menu():
     if option == 1:
         sleep(0.1)
         os.system('cls')
-        print(len(card_object_list))
         simulator(card_object_list)
+    # deck menu
     elif option == 2:
         sleep(0.1)
         os.system('cls')
         deck_edit()
+    # parameters -later
     elif option == 3:
         sleep(0.1)
         os.system('cls')
         set_parameter(card_object_list)
+    # quit
     elif option == 4:
         quit()
     else:
@@ -60,4 +62,6 @@ def main_menu():
         print('invalid menu')
 
 while(True):
+    sleep(0.1)
+    os.system('cls')
     main_menu()

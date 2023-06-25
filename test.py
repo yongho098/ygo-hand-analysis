@@ -1,6 +1,8 @@
 import pyperclip
 import json
 import pprint
+import os
+import csv
 
 with open("decklists/example_decklist.json") as json_file:
         json_data = json.load(json_file)
@@ -71,6 +73,13 @@ Side
 3 Evenly Matched
 3 Solemn Judgment
 """
+
+a = [['Kashtiratheosis', 'Ash Blossom & Joyous Spring', 'Terraforming', 'Forbidden Lance', 'Pot of Prosperity'], 
+     ['Kashtiratheosis', 'Infinite Impermanence', 'Book of Moon', 'Kashtira Birth', 'Book of Moon'], 
+     ['Pressured Planet Wraitsoth', 'Forbidden Lance', 'Infinite Impermanence', 'Infinite Impermanence', 'Kashtira Big Bang'], 
+     ['Ash Blossom & Joyous Spring', 'Kashtiratheosis', 'Triple Tactics Talent', 'Dimension Shifter', 'Pressured Planet Wraitsoth'],
+     ['Forbidden Lance', 'Kashtiratheosis', 'Ash Blossom & Joyous Spring', 'Infinite Impermanence', 'Pot of Prosperity']]
+
 output = {}
 outputmd = {}
 deck_list = []
@@ -100,4 +109,6 @@ Trap
 ls = newtest2.split("\n")
 #print(ls)
 
-pprint.pprint({})
+with open(f"results/test.csv", 'w') as file:
+        writer = csv.writer(file, lineterminator="\n")
+        writer.writerows(a)
