@@ -125,6 +125,36 @@ def deck_selector():
             os.system('cls')
             return
 
+def deck_importer():
+    input('Copy decklist into clipboard. Press Enter to continue')
+    input_decklist = pyperclip.paste()
+    sleep(0.1)
+    os.system('cls')
+    deck_list = input_decklist.split("\r\n")
+    parser(deck_list, 'whole')
+    success = parser(deck_list, 'main')
+    
+    if success == 1:
+        # valid decklist-create json
+        for key in deck_dictionary_main:
+            deck_list_clean.append(key)
+        print(deck_dictionary_whole)
+        create_card()
+        json_object = json.dumps(deck_dictionary_main, sort_keys=True, indent=4)
+        output_path = input("Input Decklist Name: ")
+        with open(f"decklists/{output_path}.json", "w") as outfile:
+            outfile.write(json_object)
+        input('Imported Decklist. Press Enter to continue')
+        sleep(0.1)
+        os.system('cls')
+        return
+    else:
+        # tried to add invalid deck
+        input("invalid deck. press enter to continue")
+        sleep(0.1)
+        os.system('cls')
+        return
+
 def viewer(deck_dict):
     pprint.pprint(deck_dict)
     input("Viewing Deck List. Press Enter to continue.")
@@ -157,34 +187,9 @@ def deck_edit():
             # add an export to json option
             sleep(0.1)
             os.system('cls')
-            input('Copy decklist into clipboard. Press Enter to continue')
-            input_decklist = pyperclip.paste()
+            deck_importer()
             sleep(0.1)
             os.system('cls')
-            deck_list = input_decklist.split("\r\n")
-            parser(deck_list, 'whole')
-            success = parser(deck_list, 'main')
-            
-            if success == 1:
-                # valid decklist-create json
-                for key in deck_dictionary_main:
-                    deck_list_clean.append(key)
-                print(deck_dictionary_whole)
-                create_card()
-                json_object = json.dumps(deck_dictionary_main)
-                output_path = input("Input Decklist Name: ")
-                with open(f"decklists/{output_path}.json", "w") as outfile:
-                    outfile.write(json_object)
-                input('Imported Decklist. Press Enter to continue')
-                sleep(0.1)
-                os.system('cls')
-                continue
-            else:
-                # tried to add invalid deck
-                input("invalid deck. press enter to continue")
-                sleep(0.1)
-                os.system('cls')
-                continue
 
         # view deck
         elif option == 3:
