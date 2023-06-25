@@ -126,7 +126,8 @@ def deck_selector():
             return
 
 def deck_importer():
-    input('Copy decklist into clipboard. Press Enter to continue')
+    global card_object_list
+    input('Copy Omega decklist into clipboard. Press Any Button to continue')
     input_decklist = pyperclip.paste()
     sleep(0.1)
     os.system('cls')
@@ -139,12 +140,13 @@ def deck_importer():
         for key in deck_dictionary_main:
             deck_list_clean.append(key)
         print(deck_dictionary_whole)
+        card_object_list.clear()
         create_card()
         json_object = json.dumps(deck_dictionary_main, sort_keys=True, indent=4)
         output_path = input("Input Decklist Name: ")
         with open(f"decklists/{output_path}.json", "w") as outfile:
             outfile.write(json_object)
-        input('Imported Decklist. Press Enter to continue')
+        input('Imported Decklist to decklists Folder. Press Enter to continue')
         sleep(0.1)
         os.system('cls')
         return
@@ -164,11 +166,11 @@ def deck_edit():
     while(True):
         print_menu()
         try:
-            option = int(input('Enter choice: '))
+            option = int(input('Enter Option: '))
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("invalid input")
+            print("Invalid Option")
             continue
         # Select deck from decklist folder-already imported.
         if option == 1:
@@ -207,7 +209,7 @@ def deck_edit():
         else:
             sleep(0.1)
             os.system('cls')
-            print('invalid menu')
+            print('Invalid Menu Option')
             continue
 
 deck_dictionary_main = json_data

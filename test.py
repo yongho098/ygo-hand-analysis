@@ -110,5 +110,7 @@ ls = newtest2.split("\n")
 #print(ls)
 
 with open(f"results/test.csv", 'w') as file:
-        writer = csv.writer(file, lineterminator="\n")
-        writer.writerows(a)
+        for line in a:
+                writer = csv.writer(file, lineterminator="\n")
+                writer.writerow(sorted(line))
+

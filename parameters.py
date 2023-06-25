@@ -40,11 +40,11 @@ def set_parameter(card_obj_list):
     while(True):
         print_menu(parameter_menu_options)
         try:
-            option = int(input('Enter choice: '))
+            option = int(input('Enter Option: '))
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("invalid input")
+            print("Invalid Option")
             continue
         # categorize
         if option == 1:
@@ -61,4 +61,4 @@ def set_parameter(card_obj_list):
         else:
             sleep(0.1)
             os.system('cls')
-            print('invalid menu option')
+            print('Invalid Menu Option')

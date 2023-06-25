@@ -24,11 +24,11 @@ def settings_menu():
     while(True):
         print_menu(settings_menu_options)
         try:
-            option = int(input('Enter choice: '))
+            option = int(input('Enter Option: '))
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("invalid input")
+            print("Invalid Option")
             return
         if option == 1:
             # number of runs
@@ -51,13 +51,11 @@ def settings_menu():
         else:
             sleep(0.1)
             os.system('cls')
-            print('invalid menu option')
+            print('Invalid menu option')
             continue
     
 
 def simulation(card_list, runs, hand_size):
-    # create list?
-    # reset results
     results = []
     for run in range(runs):
         local_result = []
@@ -69,14 +67,14 @@ def simulation(card_list, runs, hand_size):
         results.append(local_result)
         # local results, add to global after printing
     print('\n')
-    # print(results)
     # export to csv
-    if input("Press 1 to export results. ") == '1':
-        export_name = input('Enter export file name: ')
+    if input("Press 1 to Export Results. ") == '1':
+        export_name = input('Enter Export File Name: ')
         with open(f"results/{export_name}.csv", 'w') as file:
-            writer = csv.writer(file, lineterminator="\n")
-            writer.writerows(results)
-        input("Exported Results. Press Enter to continue.")
+            for line in results:
+                writer = csv.writer(file, lineterminator="\n")
+                writer.writerow(sorted(line))
+        input("Exported Results to results Folder. Press Enter to continue.")
         sleep(0.1)
         os.system('cls')
     else:
@@ -87,11 +85,11 @@ def simulator(card_object_list):
     while(True):
         print_menu(simulator_menu_options)
         try:
-            option = int(input('Enter choice: '))
+            option = int(input('Enter Option: '))
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("invalid input")
+            print("Invalid Option")
             continue
         # run simulation
         if option == 1:
@@ -118,6 +116,6 @@ def simulator(card_object_list):
         else:
             sleep(0.1)
             os.system('cls')
-            print('invalid menu option')
+            print('Invalid Menu Option')
             continue
             

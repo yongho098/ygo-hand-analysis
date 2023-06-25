@@ -32,11 +32,11 @@ def print_menu():
 def main_menu():
     print_menu()
     try:
-        option = int(input('Enter choice: '))
+        option = int(input('Enter Option: '))
     except ValueError:
         sleep(0.1)
         os.system('cls')
-        print("invalid input")
+        print("Invalid Option")
         return True
     # simulation
     if option == 1:
@@ -59,7 +59,7 @@ def main_menu():
     else:
         sleep(0.1)
         os.system('cls')
-        print('invalid menu')
+        print('Invalid Menu Option')
 
 while(True):
     sleep(0.1)
