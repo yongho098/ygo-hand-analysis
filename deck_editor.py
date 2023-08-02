@@ -4,8 +4,7 @@ import pyperclip
 import json
 import pprint
 
-with open("decklists/example_decklist.json") as json_file:
-        json_data = json.load(json_file)
+
 
 # add an import from file option so user doesnt have to do manually every time
 #run create card when booting for default?
@@ -19,6 +18,10 @@ card_subtype = []
 # main deck only
 deck_dictionary_main = {}
 deck_dictionary_whole = {}
+
+with open("decklists/example_decklist.json") as json_file:
+        json_data = json.load(json_file)
+
 
 deck_edit_menu_options = {1: 'Select Deck', 2: 'Import Deck', 3: 'View Deck', 4: 'Return'}
 def print_menu():
@@ -75,7 +78,7 @@ class Card:
         # Either engine or non-engine since calcluating playability
         self.card_type = ''
         # applying Patrick Hoban's card type theory-turn into list since possible to have multiple
-        # Starter, extender, defensive, garnet, consistency
+        # Starter, extender, defensive, offensive, garnet, consistency
         self.subtype = ''
 
 # take dictionary and create objects out of it. add to list afterwards
@@ -121,6 +124,9 @@ def deck_selector():
             deck_dictionary_main = json_data
             card_object_list.clear()
             create_card()
+            deck_list_clean.clear()
+            for key in deck_dictionary_main:
+                deck_list_clean.append(key)
             sleep(0.1)
             os.system('cls')
             return
@@ -213,4 +219,9 @@ def deck_edit():
             continue
 
 deck_dictionary_main = json_data
+card_object_list.clear()
 create_card()
+
+deck_list_clean.clear()
+for key in deck_dictionary_main:
+    deck_list_clean.append(key)

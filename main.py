@@ -64,4 +64,4 @@ def main_menu():
 while(True):
     sleep(0.1)
     os.system('cls')
-    main_menu()
+    main_menu()    

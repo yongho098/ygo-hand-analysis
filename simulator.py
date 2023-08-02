@@ -23,6 +23,7 @@ def settings_menu():
     global run_amount, hand_size
     while(True):
         print_menu(settings_menu_options)
+        print(f'Number of Runs: {run_amount}, Hand Size: {hand_size}')
         try:
             option = int(input('Enter Option: '))
         except ValueError:
