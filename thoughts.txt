@@ -1,0 +1,37 @@
+analysis
+1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency'
+
+ranking system/points?
+algorithm
+rating hand
+give hard score?
+minimum playability
+depenedent on how many starters you need
+
+ratings:
+playable-full combo-main starter engine
+playable-minimum combo-engine but not starter
+non-playable: no engine/starters
+additional comments:
+fragile (loses to single interruption)-no extender/engine
+
+
+ex kash
+1 card starter-unicorn, planet, terra
+2 card combos-fenrir/rise + spell
+look for cards specifically?
+
+find combination of hands/1 card starters
+unicorn access in hand means playable to full combo
+fenrir only in hand gets shit combo but still engine
+fenrir + spell gets to full combo
+rating playability-how well does it go through interruptions. number of extenders (obviously depenedent on the type of interruption)
+skip the number and just go for categorizatoin?
+unicorn = full combo
+fenrir solo = shit combo, other cards determine offensive/defensive capability
+how to handle garnets (big bang). automatically turn off full combo?
+consistency but no starter (gamble hand)
+
+how to categorize handtraps-defensive or offensive? ash is defensive i guess. shifter is offensive?
+what does offensive mean? lowering opponent ceiling-imperm, ash, shifter? books would go here too
+defensive: stopping opponent from lowering your ceiling. in that case ash is defensive for eclipse otherwise itd be offensive. its literally just lance then isnt it

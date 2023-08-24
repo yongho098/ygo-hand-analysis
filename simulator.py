@@ -5,6 +5,7 @@ import csv
 # get object list
 # runs the algorithm
 # displays results
+# take categorizations as well in input
 
 results = []
 
@@ -69,6 +70,8 @@ def simulation(card_list, runs, hand_size):
         # local results, add to global after printing
     print('\n')
     # export to csv
+    # how to check if duplicate and whether to overwrite?
+    # analysis here?
     if input("Press 1 to Export Results. ") == '1':
         export_name = input('Enter Export File Name: ')
         with open(f"results/{export_name}.csv", 'w') as file:

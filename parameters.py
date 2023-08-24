@@ -4,6 +4,7 @@ from deck_editor import deck_list_clean
 
 #add choose deck option, based on decklist folder
 # Starter, extender, defensive, offensive, garnet, consistency
+# open file read json and write again
 parameter_menu_options = {1: 'Categorize', 2: 'Group', 3: 'Return'}
 categorizer_menu_options = {1: 'Edit Card', 2: 'Return'}
 categorizer_submenu_options = {1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency', 9: 'Return'}

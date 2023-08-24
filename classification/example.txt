@@ -1,0 +1,11 @@
+{"Kashtira Unicorn": ['Engine', 'Starter'], "Kashtira Fenrir": ['Engine', 'Starter'], "Scareclaw Kashtira": ['Engine', 'Extender'],
+"Dimension Shifter": 3, "Kashtira Riseheart": ['Engine', 'Extender'], "Ash Blossom & Joyous Spring": ['Non-Engine, 'Defensive'], 
+"Kashtiratheosis": ['Engine', 'Extender'], "Pot of Prosperity": ['Engine', 'Consistency'], "Terraforming": ['Engine', 'Starter'], 
+"Triple Tactics Talent": ['Non-Engine, 'Offensive'], "Book of Moon": ['Non-Engine, 'Offensive'], 
+"Kashtira Birth": ['Engine', 'Extender'], "Forbidden Lance": ['Non-Engine, 'Defensive'], 
+"Pressured Planet Wraitsoth": ['Engine', 'Starter'], "Infinite Impermanence": ['Non-Engine, 'Offensive'], "Kashtira Big Bang": ['Engine', 'Garnet']}
+
+1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency'
+amount?
+list, [engine/nonengine, categorization]
+[]
