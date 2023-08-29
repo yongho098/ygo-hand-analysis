@@ -2,7 +2,7 @@ import os
 from time import sleep
 from parameters import set_parameter
 from simulator import simulator
-from deck_editor import deck_edit, card_object_list
+from deck_editor import deck_edit, card_object_list, output_path
 
 #force default decklist on boot?
 
@@ -23,13 +23,15 @@ from deck_editor import deck_edit, card_object_list
 # types: starter, bombs, defensive
 # engine number
 
-main_menu_options = {1: 'Run simulation', 2: 'Edit Deck', 3: 'Set Parameters *Not Implemented*', 4: 'Exit'}
+main_menu_options = {1: 'Run simulation', 2: 'Edit Deck', 3: 'Set Parameters', 4: 'Exit'}
 
 def print_menu():
     for key in main_menu_options.keys():
         print(key, '--', main_menu_options[key])
 
 def main_menu():
+    global card_object_list, output_path
+    # return objects
     print_menu()
     try:
         option = int(input('Enter Option: '))
@@ -47,12 +49,13 @@ def main_menu():
     elif option == 2:
         sleep(0.1)
         os.system('cls')
-        deck_edit()
+        # deck_edit()
+        card_object_list, output_path = deck_edit()
     # parameters -later
     elif option == 3:
         sleep(0.1)
         os.system('cls')
-        set_parameter(card_object_list)
+        set_parameter(card_object_list, output_path)
     # quit
     elif option == 4:
         quit()

@@ -18,9 +18,11 @@ card_subtype = []
 # main deck only
 deck_dictionary_main = {}
 deck_dictionary_whole = {}
+output_path = ""
 
 with open("decklists/example_decklist.json") as json_file:
         json_data = json.load(json_file)
+output_path = 'example_decklist'
 
 
 deck_edit_menu_options = {1: 'Select Deck', 2: 'Import Deck', 3: 'View Deck', 4: 'Return'}
@@ -99,7 +101,7 @@ def create_card():
                 card_object_list.append(new_card)
 
 def deck_selector():
-    global deck_dictionary_main, card_object_list
+    global deck_dictionary_main, card_object_list, output_path
     options = os.listdir('decklists')
     while(True):
         for i in range(len(options)):
@@ -118,6 +120,7 @@ def deck_selector():
         else:
             # load deck
             select_path = f"decklists/{options[selection - 1]}"
+            output_path = options[selection - 1][:-5]
             input("selected deck. press any button to continue.")
             with open(select_path) as json_file:
                 json_data = json.load(json_file)
@@ -149,6 +152,7 @@ def deck_importer():
         card_object_list.clear()
         create_card()
         json_object = json.dumps(deck_dictionary_main, sort_keys=True, indent=4)
+        # make global to access outside
         output_path = input("Input Decklist Name: ")
         with open(f"decklists/{output_path}.json", "w") as outfile:
             outfile.write(json_object)
@@ -210,7 +214,7 @@ def deck_edit():
         elif option == 4:
             sleep(0.1)
             os.system('cls')
-            return
+            return card_object_list, output_path
         # invalid option
         else:
             sleep(0.1)

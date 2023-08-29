@@ -6,11 +6,13 @@ import csv
 # runs the algorithm
 # displays results
 # take categorizations as well in input
+# import categorizations
 
 results = []
 
 run_amount = 5
 hand_size = 5
+# settings for categorizations?
 simulator_menu_options = {1: 'Run', 2: 'Settings', 3: 'Return'}
 # should have export options
 results_menu_options = {1: 'Export to csv', 2: 'Export to txt file', 3: 'Return'}

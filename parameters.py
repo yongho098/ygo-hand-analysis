@@ -1,4 +1,4 @@
-import os
+import os, json
 from time import sleep
 from deck_editor import deck_list_clean
 
@@ -15,6 +15,7 @@ def print_menu(dict):
         print(key, '--', dict[key])
 
 def sub_categorizer(card_obj_list):
+    # secondary menu for categorizing
     card_type = ''
     card_subtype = ''
     while(True):
@@ -38,7 +39,9 @@ def sub_categorizer(card_obj_list):
                 card_subtype = categorizer_submenu_options[sub_selection]
     return card_type, card_subtype
 
-def categorizer(card_obj_list):
+def categorizer(card_obj_list, output_path):
+    # create categorization, save categorizations. - read in simulator? save locally? ( what if they change decks. reading at runtime makes more consistent.)
+    # overwrite, use current deckname
     while(True):
         sleep(0.1)
         os.system('cls')
@@ -46,12 +49,31 @@ def categorizer(card_obj_list):
         
         for i in range(len(deck_list_clean)):
             print(f"{i + 1}: {deck_list_clean[i]}")
-        selection = int(input('Input Card to edit: ')) - 1
+        selection = int(input('Input Card to edit, press 0 to return: ')) - 1
         # value error for returning
         # error check to make sure inside range
         sleep(0.1)
         os.system('cls')
         
+        # return option-save as well? save as json
+        if selection == -1:
+            # create output json object-maybe make function
+            json_out = {}
+            for j in range(len(deck_list_clean)):
+                for card4 in card_obj_list:
+                    if card4.name == deck_list_clean[j]:
+                        json_out[card4.name] = [card4.amount, card4.card_type, card4.subtype]
+                        break
+            
+            # output formatting?
+            json_object = json.dumps(json_out, sort_keys=True, indent=4)
+            with open(f"classification/{output_path}.json", "w") as outfile:
+                outfile.write(json_object)
+            input('saved configurations')
+            sleep(0.1)
+            os.system('cls')
+            return
+
         result = sub_categorizer(card_obj_list)
         sleep(0.1)
         os.system('cls')
@@ -71,13 +93,12 @@ def categorizer(card_obj_list):
                     print(f'{deck_list_clean[i]} -- Copies: {card3.amount} -- {card3.card_type} -- {card3.subtype}')
                     break
         input("Press Enter to return")
-        # save to decklist? need a way to save. maybe make a separate json 'x-1, x-2'
         # have a reset option in there too
         pass
 
 
 # set list of objects as input
-def set_parameter(card_obj_list):
+def set_parameter(card_obj_list, output_path):
     while(True):
         print_menu(parameter_menu_options)
         try:
@@ -90,7 +111,7 @@ def set_parameter(card_obj_list):
         # categorize
         if option == 1:
             # needs sub menu
-            categorizer(card_obj_list)
+            categorizer(card_obj_list, output_path)
         # create groups
         elif option == 2:
             pass
