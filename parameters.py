@@ -4,7 +4,7 @@ from deck_editor import deck_list_clean
 
 #add choose deck option, based on decklist folder
 # Starter, extender, defensive, offensive, garnet, consistency
-# open file read json and write again
+
 parameter_menu_options = {1: 'Categorize', 2: 'Group', 3: 'Return'}
 categorizer_menu_options = {1: 'Edit Card', 2: 'Return'}
 categorizer_submenu_options = {1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency', 9: 'Return'}
@@ -13,6 +13,21 @@ grouper_menu_options = {}
 def print_menu(dict):
     for key in dict.keys():
         print(key, '--', dict[key])
+        
+def read_parameter(card_list, out_path):
+    # meant for runtime
+    # read json and recreate card items, force when loading new decklist?
+    # maybe just toss in global
+    if os.path.exists(f"classification/{out_path}.json"):
+        with open(f"classification/{out_path}.json") as json_file:
+            classification_data = json.load(json_file)
+        for card in card_list:
+            if card.name in classification_data:
+                card.card_type = classification_data[card.name][1]
+                card.subtype = classification_data[card.name][2]
+        return card_list
+    else:
+        return card_list
 
 def sub_categorizer(card_obj_list):
     # secondary menu for categorizing
@@ -41,15 +56,28 @@ def sub_categorizer(card_obj_list):
 
 def categorizer(card_obj_list, output_path):
     # create categorization, save categorizations. - read in simulator? save locally? ( what if they change decks. reading at runtime makes more consistent.)
-    # overwrite, use current deckname
+    # overwrite, use current deckname/deck
+    # need read option for runtime.
+    card_obj_list = read_parameter(card_obj_list, output_path)
     while(True):
         sleep(0.1)
         os.system('cls')
         # just show list of cards and edit
         
+        # load cards if pre existing list
+        
+        
+        # for i in range(len(deck_list_clean)):
+        #     print(f"{i + 1}: {deck_list_clean[i]}")
+        # selection = int(input('Input Card to edit, press 0 to return: ')) - 1
+        
         for i in range(len(deck_list_clean)):
-            print(f"{i + 1}: {deck_list_clean[i]}")
-        selection = int(input('Input Card to edit, press 0 to return: ')) - 1
+            for card3 in card_obj_list:
+                if card3.name == deck_list_clean[i]:
+                    print(f'{i+1}: {deck_list_clean[i]} -- Copies: {card3.amount} -- {card3.card_type} -- {card3.subtype}')
+                    break
+        print('\n')
+        selection = int(input('Input Card to edit, Input 0 to return: ')) - 1
         # value error for returning
         # error check to make sure inside range
         sleep(0.1)
@@ -69,7 +97,7 @@ def categorizer(card_obj_list, output_path):
             json_object = json.dumps(json_out, sort_keys=True, indent=4)
             with open(f"classification/{output_path}.json", "w") as outfile:
                 outfile.write(json_object)
-            input('saved configurations')
+            input('Saved Configurations')
             sleep(0.1)
             os.system('cls')
             return
@@ -87,12 +115,12 @@ def categorizer(card_obj_list, output_path):
                 #print(card.name)
         # print(f'{deck_list_clean[selection]}: {categorize_amount}')
 
-        for i in range(len(deck_list_clean)):
-            for card3 in card_obj_list:
-                if card3.name == deck_list_clean[i]:
-                    print(f'{deck_list_clean[i]} -- Copies: {card3.amount} -- {card3.card_type} -- {card3.subtype}')
-                    break
-        input("Press Enter to return")
+        # for i in range(len(deck_list_clean)):
+        #     for card3 in card_obj_list:
+        #         if card3.name == deck_list_clean[i]:
+        #             print(f'{deck_list_clean[i]} -- Copies: {card3.amount} -- {card3.card_type} -- {card3.subtype}')
+        #             break
+        # input("Press Enter to return")
         # have a reset option in there too
         pass
 

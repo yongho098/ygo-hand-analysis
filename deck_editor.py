@@ -10,6 +10,9 @@ import pprint
 #run create card when booting for default?
 # json for decklist, classifications? share same name so can identify
 
+# have load function also load classification
+# run load function at runtime-create separate funciton
+
 deck_list = []
 deck_list_clean = []
 card_object_list = []
@@ -100,7 +103,17 @@ def create_card():
                 new_card.amount = amount
                 card_object_list.append(new_card)
 
+def load_classification(card_obj_list, out_path):
+    with open(f"classification/{out_path}.json") as json_file:
+        classification_data = json.load(json_file)
+    for card in card_obj_list:
+        if card.name in classification_data:
+            card.card_type = classification_data[card.name][1]
+            card.subtype = classification_data[card.name][2]
+    return card_obj_list
+
 def deck_selector():
+    # toss loader in here too
     global deck_dictionary_main, card_object_list, output_path
     options = os.listdir('decklists')
     while(True):
@@ -121,18 +134,21 @@ def deck_selector():
             # load deck
             select_path = f"decklists/{options[selection - 1]}"
             output_path = options[selection - 1][:-5]
-            input("selected deck. press any button to continue.")
+            input("Selected deck. press Enter to Continue.")
             with open(select_path) as json_file:
                 json_data = json.load(json_file)
             deck_dictionary_main = json_data
             card_object_list.clear()
             create_card()
             deck_list_clean.clear()
+            card_object_list = load_classification(card_object_list, output_path)
             for key in deck_dictionary_main:
                 deck_list_clean.append(key)
             sleep(0.1)
             os.system('cls')
             return
+
+
 
 def deck_importer():
     global card_object_list
@@ -229,3 +245,4 @@ create_card()
 deck_list_clean.clear()
 for key in deck_dictionary_main:
     deck_list_clean.append(key)
+card_object_list = load_classification(card_object_list, 'example_decklist')

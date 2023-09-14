@@ -12,10 +12,10 @@ results = []
 
 run_amount = 5
 hand_size = 5
-# settings for categorizations?
+# settings for categorizations?-performed in deck editor
 simulator_menu_options = {1: 'Run', 2: 'Settings', 3: 'Return'}
 # should have export options
-results_menu_options = {1: 'Export to csv', 2: 'Export to txt file', 3: 'Return'}
+results_menu_options = {1: 'Export Data', 2: 'Export Analysis', 3: 'Export Both', 4: 'Return'}
 settings_menu_options = {1: 'Number of Runs', 2: 'Hand Size', 3: 'Return'}
 
 def print_menu(menu_dict):
@@ -58,23 +58,70 @@ def settings_menu():
             print('Invalid menu option')
             continue
     
+def analysis_func(local_list):
+    
+    # [1 starter, total starter, garnets, playable]
+    output = [0, 0, 0, 0]
+    for card in local_list:
+        if card.subtype == 'Starter':
+            # becomes playable
+            output[0] = 1
+            output[1] += 1
+        if card.subtype == 'Garnet':
+            output[2] += 1
+        # add combo for playable later
+    if output[0] != 0:
+        # playable
+        output[3] = 1
+    return output
 
 def simulation(card_list, runs, hand_size):
+    # list of list?
+    total_starter = 0
+    analysis_dict = {'Hands with at least 1 Starter': 0, 
+                'Hands with no Starters': 0,
+                'Hands with Garnets': 0,
+                'Average Starters in Hand': 0,
+                '"Playable Hands"': 0,
+                '"Unplayable Hands': 0,
+                'Average Hand Playability': '0%'}
     results = []
+    
     for run in range(runs):
+        analysis_results = []
         local_result = []
+        local_card = []
         random.shuffle(card_list)
         # handsize
         for card in range(hand_size):
             local_result.append(card_list[card].name)
+            local_card.append(card_list[card])
+        analysis_results = analysis_func(local_card)
+        analysis_dict['Hands with at least 1 Starter'] += analysis_results[0]
+        total_starter += analysis_results[1]
+        if analysis_results[1] == 0:
+            analysis_dict['Hands with no Starters'] += 1
+        analysis_dict['Hands with Garnets'] += analysis_results[2]
+        analysis_dict['"Playable Hands"'] += analysis_results[3]
+        playable_percent = analysis_dict['"Playable Hands"']/runs
+        analysis_dict['Average Hand Playability'] = f'{playable_percent * 100}%'
         print(local_result)
         results.append(local_result)
         # local results, add to global after printing
+    
     print('\n')
-    # export to csv
-    # how to check if duplicate and whether to overwrite?
+    print(f'Runs: {runs}')
+    analysis_dict['Average Starters in Hand'] = total_starter/runs
+    print(analysis_dict)
+    print('\n')
+    # have analysis in here
+    # what to evaluate
+
     # analysis here?
-    if input("Press 1 to Export Results. ") == '1':
+    print_menu(results_menu_options)
+    export_option = input("Enter Option: ")
+    if export_option == '1':
+        # Just data
         export_name = input('Enter Export File Name: ')
         with open(f"results/{export_name}.csv", 'w') as file:
             for line in results:
@@ -83,6 +130,21 @@ def simulation(card_list, runs, hand_size):
         input("Exported Results to results Folder. Press Enter to continue.")
         sleep(0.1)
         os.system('cls')
+    elif export_option == '2':
+        # Just analysis
+        export_name = input('Enter Export File Name: ')
+        pass
+    elif export_option == '3':
+        # Both-most common
+        export_name = input('Enter Export File Name: ')
+        with open(f"results/{export_name}.csv", 'w') as file:
+            for line in results:
+                writer = csv.writer(file, lineterminator="\n")
+                writer.writerow(sorted(line))
+        input("Exported Results to results Folder. Press Enter to continue.")
+        sleep(0.1)
+        os.system('cls')
+
     else:
         sleep(0.1)
         os.system('cls')

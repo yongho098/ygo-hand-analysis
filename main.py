@@ -6,18 +6,13 @@ from deck_editor import deck_edit, card_object_list, output_path
 
 #force default decklist on boot?
 
-# card pool-api
-# deck creator-import option
-# define deck
-# define tester
-# test
-# results-show hands, show statistics
-
 # start with cli menu
 
 # pyqt-button, label, input box, combo box, radio
 # layout managers
 # menu options? deck edit, set paramteres, test
+
+# deal with input cleaning
 
 # categorization
 # types: starter, bombs, defensive

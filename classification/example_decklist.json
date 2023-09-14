@@ -21,13 +21,13 @@
     ],
     "Infinite Impermanence": [
         3,
-        "",
-        ""
+        "Non-Engine",
+        "Defensive"
     ],
     "Kashtira Big Bang": [
         1,
-        "",
-        ""
+        "Engine",
+        "Garnet"
     ],
     "Kashtira Birth": [
         3,
@@ -37,12 +37,12 @@
     "Kashtira Fenrir": [
         3,
         "Engine",
-        "Starter"
+        "Extender"
     ],
     "Kashtira Riseheart": [
         2,
-        "",
-        ""
+        "Engine",
+        "Extender"
     ],
     "Kashtira Unicorn": [
         2,
@@ -56,23 +56,23 @@
     ],
     "Pot of Prosperity": [
         3,
-        "",
-        ""
+        "Engine",
+        "Consistency"
     ],
     "Pressured Planet Wraitsoth": [
         3,
-        "",
-        ""
+        "Engine",
+        "Starter"
     ],
     "Scareclaw Kashtira": [
         1,
-        "Engine",
-        "Extender"
+        "",
+        ""
     ],
     "Terraforming": [
         1,
-        "",
-        ""
+        "Engine",
+        "Starter"
     ],
     "Triple Tactics Talent": [
         3,
