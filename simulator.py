@@ -2,11 +2,14 @@ import os
 from time import sleep
 import random
 import csv
+import json
 # get object list
 # runs the algorithm
 # displays results
 # take categorizations as well in input
 # import categorizations
+
+combo_data = []
 
 results = []
 
@@ -58,10 +61,11 @@ def settings_menu():
             print('Invalid menu option')
             continue
     
-def analysis_func(local_list):
+def analysis_func(local_list, combo):
+    # make copy of list and edit to check
     
     # [1 starter, total starter, garnets, playable]
-    output = [0, 0, 0, 0]
+    output = [0, 0, 0, 0, 0]
     for card in local_list:
         if card.subtype == 'Starter':
             # becomes playable
@@ -70,12 +74,22 @@ def analysis_func(local_list):
         if card.subtype == 'Garnet':
             output[2] += 1
         # add combo for playable later
+        for subcombo in combo:
+            if card.name in subcombo:
+                # loop through rest?
+                local_copy = subcombo
+                local_copy.remove(card.name)
+                if local_copy[0] in local_list:
+                    # counts as 2 card combo
+                    # count 2 hand combo once only?
+                    pass
+                pass
     if output[0] != 0:
         # playable
         output[3] = 1
     return output
 
-def simulation(card_list, runs, hand_size):
+def simulation(card_list, runs, hand_size, combo):
     # list of list?
     total_starter = 0
     analysis_dict = {'Hands with at least 1 Starter': 0, 
@@ -96,7 +110,7 @@ def simulation(card_list, runs, hand_size):
         for card in range(hand_size):
             local_result.append(card_list[card].name)
             local_card.append(card_list[card])
-        analysis_results = analysis_func(local_card)
+        analysis_results = analysis_func(local_card, combo)
         analysis_dict['Hands with at least 1 Starter'] += analysis_results[0]
         total_starter += analysis_results[1]
         if analysis_results[1] == 0:
@@ -162,8 +176,19 @@ def simulation(card_list, runs, hand_size):
     else:
         sleep(0.1)
         os.system('cls')
+        
+        
+def read_parameter(out_path):
+    # loading combo data
+    if os.path.exists(f"classification/{out_path}.json"):
+        with open(f"classification/{out_path}.json") as json_file:
+            classification_data = json.load(json_file)
+        return classification_data[1]
+        
 
-def simulator(card_object_list):    
+
+def simulator(card_object_list, output_path):
+    combo_data = read_parameter(output_path)    
     while(True):
         print_menu(simulator_menu_options)
         try:
@@ -177,7 +202,7 @@ def simulator(card_object_list):
         if option == 1:
             sleep(0.1)
             os.system('cls')
-            simulation(card_object_list, run_amount, hand_size)
+            simulation(card_object_list, run_amount, hand_size, combo_data)
         # apply settings
         elif option == 2:
             try:

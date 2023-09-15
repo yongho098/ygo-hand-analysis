@@ -9,6 +9,7 @@ parameter_menu_options = {1: 'Categorize', 2: 'Group', 3: 'Return'}
 categorizer_menu_options = {1: 'Edit Card', 2: 'Return'}
 categorizer_submenu_options = {1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency', 9: 'Return'}
 grouper_menu_options = {1: 'Create Combo', 2: 'View Combo', 3: 'Delete Combo', 4: 'Return'}
+final_output = [{}, []]
 
 def print_menu(dict):
     for key in dict.keys():
@@ -22,9 +23,11 @@ def read_parameter(card_list, out_path):
         with open(f"classification/{out_path}.json") as json_file:
             classification_data = json.load(json_file)
         for card in card_list:
-            if card.name in classification_data:
-                card.card_type = classification_data[card.name][1]
-                card.subtype = classification_data[card.name][2]
+            if card.name in classification_data[0]:
+                card.card_type = classification_data[0][card.name][1]
+                card.subtype = classification_data[0][card.name][2]
+        final_output[0] =  classification_data[0]
+        final_output[1] = classification_data[1]
         return card_list
     else:
         return card_list
@@ -58,7 +61,6 @@ def categorizer(card_obj_list, output_path):
     # create categorization, save categorizations. - read in simulator? save locally? ( what if they change decks. reading at runtime makes more consistent.)
     # overwrite, use current deckname/deck
     # need read option for runtime.
-    card_obj_list = read_parameter(card_obj_list, output_path)
     while(True):
         sleep(0.1)
         os.system('cls')
@@ -85,9 +87,10 @@ def categorizer(card_obj_list, output_path):
                     if card4.name == deck_list_clean[j]:
                         json_out[card4.name] = [card4.amount, card4.card_type, card4.subtype]
                         break
-            
+            final_output[0] = json_out
             # output formatting?
-            json_object = json.dumps(json_out, sort_keys=True, indent=4)
+            
+            json_object = json.dumps(final_output, indent=2)
             with open(f"classification/{output_path}.json", "w") as outfile:
                 outfile.write(json_object)
             input('Saved Configurations')
@@ -120,6 +123,7 @@ def combo_delete(current):
         del current[selection]
 
 def create_combo(card_obj_list):
+    # deal with adding same combo
     output = []
     sleep(0.1)
     os.system('cls')
@@ -134,7 +138,6 @@ def create_combo(card_obj_list):
             # input cleaning
             selection = int(input('Input Card to add to combo, Input 0 to return: ')) - 1
             if selection == -1:
-                print(output)
                 return output
             output.append(deck_list_clean[selection])
             sleep(0.1)
@@ -144,19 +147,19 @@ def create_combo(card_obj_list):
         except IndexError:
             sleep(0.1)
             os.system('cls')
-            print('invalid input')
+            print('Invalid Input')
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print('invalid inpu2t')
+            print('Invalid Input')
         
         
 
-def combo(card_obj_list):
+def combo(card_obj_list, output_path):
     # show list, create lists of combos
     # currently just fenrir/rise + spell
     add = []
-    output = []
+    output = final_output[1]
     # sub menu-view, create, return
     while(True):
         sleep(0.1)
@@ -189,14 +192,22 @@ def combo(card_obj_list):
             os.system('cls')
             output = combo_delete(output)
         elif option == 4:
-            # return
+            # return-output, save
             # save-refactor into json
+            final_output[1] = output
+            sleep(0.1)
+            os.system('cls')
+            json_object = json.dumps(final_output, indent=2)
+            with open(f"classification/{output_path}.json", "w") as outfile:
+                outfile.write(json_object)
+            input('Saved Configurations')
             sleep(0.1)
             os.system('cls')
             return
 
 # set list of objects as input
 def set_parameter(card_obj_list, output_path):
+    card_obj_list = read_parameter(card_obj_list, output_path)
     while(True):
         print_menu(parameter_menu_options)
         try:
@@ -212,7 +223,7 @@ def set_parameter(card_obj_list, output_path):
             categorizer(card_obj_list, output_path)
         # create groups
         elif option == 2:
-            combo(card_obj_list)
+            combo(card_obj_list, output_path)
             pass
         # return to main menu
         elif option == 3:

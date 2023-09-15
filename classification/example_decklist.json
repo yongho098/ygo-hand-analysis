@@ -1,82 +1,94 @@
-{
-    "Ash Blossom & Joyous Spring": [
-        3,
-        "",
-        ""
-    ],
-    "Book of Moon": [
-        3,
-        "",
-        ""
-    ],
-    "Dimension Shifter": [
-        3,
-        "",
-        ""
-    ],
-    "Forbidden Lance": [
-        3,
-        "",
-        ""
-    ],
-    "Infinite Impermanence": [
-        3,
-        "Non-Engine",
-        "Defensive"
-    ],
-    "Kashtira Big Bang": [
-        1,
-        "Engine",
-        "Garnet"
-    ],
-    "Kashtira Birth": [
-        3,
-        "",
-        ""
+[
+  {
+    "Kashtira Unicorn": [
+      2,
+      "Engine",
+      "Starter"
     ],
     "Kashtira Fenrir": [
-        3,
-        "Engine",
-        "Extender"
-    ],
-    "Kashtira Riseheart": [
-        2,
-        "Engine",
-        "Extender"
-    ],
-    "Kashtira Unicorn": [
-        2,
-        "Engine",
-        "Starter"
-    ],
-    "Kashtiratheosis": [
-        3,
-        "",
-        ""
-    ],
-    "Pot of Prosperity": [
-        3,
-        "Engine",
-        "Consistency"
-    ],
-    "Pressured Planet Wraitsoth": [
-        3,
-        "Engine",
-        "Starter"
+      3,
+      "Engine",
+      "Extender"
     ],
     "Scareclaw Kashtira": [
-        1,
-        "",
-        ""
+      1,
+      "Engine",
+      "Extender"
+    ],
+    "Dimension Shifter": [
+      3,
+      "Non-Engine",
+      "Offensive"
+    ],
+    "Kashtira Riseheart": [
+      2,
+      "Engine",
+      "Extender"
+    ],
+    "Ash Blossom & Joyous Spring": [
+      3,
+      "",
+      ""
+    ],
+    "Kashtiratheosis": [
+      3,
+      "",
+      ""
+    ],
+    "Pot of Prosperity": [
+      3,
+      "Engine",
+      "Consistency"
     ],
     "Terraforming": [
-        1,
-        "Engine",
-        "Starter"
+      1,
+      "Engine",
+      "Starter"
     ],
     "Triple Tactics Talent": [
-        3,
-        "",
-        ""
+      3,
+      "",
+      ""
+    ],
+    "Book of Moon": [
+      3,
+      "Non-Engine",
+      "Offensive"
+    ],
+    "Kashtira Birth": [
+      3,
+      "Engine",
+      "Extender"
+    ],
+    "Forbidden Lance": [
+      3,
+      "Non-Engine",
+      "Defensive"
+    ],
+    "Pressured Planet Wraitsoth": [
+      3,
+      "Engine",
+      "Starter"
+    ],
+    "Infinite Impermanence": [
+      3,
+      "Non-Engine",
+      "Defensive"
+    ],
+    "Kashtira Big Bang": [
+      1,
+      "Engine",
+      "Garnet"
     ]
-}
+  },
+  [
+    [
+      "Kashtira Fenrir",
+      "Kashtiratheosis"
+    ],
+    [
+      "Kashtira Birth",
+      "Kashtira Fenrir"
+    ]
+  ]
+]

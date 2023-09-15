@@ -117,6 +117,15 @@ b = {'asdf': 1, 'fdsfa': 2, 'cvcv': 3}
 #                 writer = csv.writer(file, lineterminator="\n")
 #                 writer.writerow(out)
 
-a = [1, 2, 3]
-a.append(None)
-print(a)
+test = [[
+      "Kashtira Fenrir",
+      "Kashtiratheosis"
+    ],
+    [
+      "Kashtira Birth",
+      "Kashtira Fenrir"
+    ],
+    ["Kashtira Fenrir", "Kashtira Birth"]]
+
+print(test[0].remove('Kashtira Fenrir'))
+print(test[0])

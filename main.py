@@ -39,7 +39,7 @@ def main_menu():
     if option == 1:
         sleep(0.1)
         os.system('cls')
-        simulator(card_object_list)
+        simulator(card_object_list, output_path)
     # deck menu
     elif option == 2:
         sleep(0.1)
