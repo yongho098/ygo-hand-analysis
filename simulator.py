@@ -18,7 +18,7 @@ hand_size = 5
 # settings for categorizations?-performed in deck editor
 simulator_menu_options = {1: 'Run', 2: 'Settings', 3: 'Return'}
 # should have export options
-results_menu_options = {1: 'Export Data', 2: 'Export Analysis', 3: 'Export Both', 4: 'Return'}
+results_menu_options = {1: 'Export Data', 2: 'Export Analysis', 3: 'Export Both', 4: 'Run again', 5: 'Return'}
 settings_menu_options = {1: 'Number of Runs', 2: 'Hand Size', 3: 'Return'}
 
 def print_menu(menu_dict):
@@ -64,28 +64,32 @@ def settings_menu():
 def analysis_func(local_list, combo):
     # make copy of list and edit to check
     
-    # [1 starter, total starter, garnets, playable]
+    # [1 starter, total starter, garnets, playable, 2 card combo (exists)]
     output = [0, 0, 0, 0, 0]
     for card in local_list:
         if card.subtype == 'Starter':
             # becomes playable
             output[0] = 1
             output[1] += 1
-        if card.subtype == 'Garnet':
+        elif card.subtype == 'Garnet':
             output[2] += 1
         # add combo for playable later
-        for subcombo in combo:
-            if card.name in subcombo:
-                # loop through rest?
-                local_copy = subcombo
-                local_copy.remove(card.name)
-                if local_copy[0] in local_list:
-                    # counts as 2 card combo
-                    # count 2 hand combo once only?
-                    pass
-                pass
-    if output[0] != 0:
-        # playable
+        else:
+            for subcombo in combo:
+                if card.name in subcombo:
+                    # loop through rest?
+                    local_copy = subcombo.copy()
+                    local_copy.remove(card.name)
+                    for card in local_list:
+                        if local_copy[0] == card.name:
+                            # counts as 2 card combo
+                            # count 2 hand combo once only?
+                            # check if playable or other 1 card starter
+                            output[4] = 1
+    if output[0] == 0 and output[4] == 0:
+        # unplayable
+        pass
+    else:
         output[3] = 1
     return output
 
@@ -96,6 +100,7 @@ def simulation(card_list, runs, hand_size, combo):
                 'Hands with no Starters': 0,
                 'Hands with Garnets': 0,
                 'Average Starters in Hand': 0,
+                'Hands with 2 Card Combos': 0,
                 '"Playable Hands"': 0,
                 '"Unplayable Hands': 0,
                 'Average Hand Playability': '0%'}
@@ -116,7 +121,11 @@ def simulation(card_list, runs, hand_size, combo):
         if analysis_results[1] == 0:
             analysis_dict['Hands with no Starters'] += 1
         analysis_dict['Hands with Garnets'] += analysis_results[2]
-        analysis_dict['"Playable Hands"'] += analysis_results[3]
+        analysis_dict['Hands with 2 Card Combos'] += analysis_results[4]
+        if analysis_results[3] != 0:
+            analysis_dict['"Playable Hands"'] += analysis_results[3]
+        else:
+            analysis_dict['"Unplayable Hands'] += 1
         playable_percent = analysis_dict['"Playable Hands"']/runs
         analysis_dict['Average Hand Playability'] = f'{playable_percent * 100}%'
         print(local_result)
@@ -172,7 +181,10 @@ def simulation(card_list, runs, hand_size, combo):
         input("Exported Results to results Folder. Press Enter to continue.")
         sleep(0.1)
         os.system('cls')
-
+    elif export_option == '4':
+        sleep(0.1)
+        os.system('cls')
+        simulation(card_list, runs, hand_size, combo)
     else:
         sleep(0.1)
         os.system('cls')
