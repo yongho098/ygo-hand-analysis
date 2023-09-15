@@ -8,7 +8,7 @@ from deck_editor import deck_list_clean
 parameter_menu_options = {1: 'Categorize', 2: 'Group', 3: 'Return'}
 categorizer_menu_options = {1: 'Edit Card', 2: 'Return'}
 categorizer_submenu_options = {1: 'Engine', 2: 'Non-Engine', 3: 'Starter', 4: 'Extender', 5: 'Defensive', 6: 'Offensive', 7: 'Garnet', 8: 'Consistency', 9: 'Return'}
-grouper_menu_options = {}
+grouper_menu_options = {1: 'Create Combo', 2: 'View Combo', 3: 'Delete Combo', 4: 'Return'}
 
 def print_menu(dict):
     for key in dict.keys():
@@ -64,13 +64,6 @@ def categorizer(card_obj_list, output_path):
         os.system('cls')
         # just show list of cards and edit
         
-        # load cards if pre existing list
-        
-        
-        # for i in range(len(deck_list_clean)):
-        #     print(f"{i + 1}: {deck_list_clean[i]}")
-        # selection = int(input('Input Card to edit, press 0 to return: ')) - 1
-        
         for i in range(len(deck_list_clean)):
             for card3 in card_obj_list:
                 if card3.name == deck_list_clean[i]:
@@ -112,18 +105,95 @@ def categorizer(card_obj_list, output_path):
                 card.card_type = result[0]
                 card.subtype = result[1]
                 categorize_amount+=1
-                #print(card.name)
-        # print(f'{deck_list_clean[selection]}: {categorize_amount}')
-
-        # for i in range(len(deck_list_clean)):
-        #     for card3 in card_obj_list:
-        #         if card3.name == deck_list_clean[i]:
-        #             print(f'{deck_list_clean[i]} -- Copies: {card3.amount} -- {card3.card_type} -- {card3.subtype}')
-        #             break
-        # input("Press Enter to return")
-        # have a reset option in there too
         pass
 
+def combo_delete(current):
+     while(True):
+        sleep(0.1)
+        os.system('cls')
+        for i in range(len(current)):
+            print(f'{i+1}: {current[i]}')
+        print('\n')
+        selection = int(input('Input Combo to delete, Input 0 to return: ')) - 1
+        if selection == -1:
+            return current
+        del current[selection]
+
+def create_combo(card_obj_list):
+    output = []
+    sleep(0.1)
+    os.system('cls')
+    while(True):        
+        for i in range(len(deck_list_clean)):
+                for card3 in card_obj_list:
+                    if card3.name == deck_list_clean[i]:
+                        print(f'{i+1}: {deck_list_clean[i]}')
+                        break
+        print('\n')
+        try:
+            # input cleaning
+            selection = int(input('Input Card to add to combo, Input 0 to return: ')) - 1
+            if selection == -1:
+                print(output)
+                return output
+            output.append(deck_list_clean[selection])
+            sleep(0.1)
+            os.system('cls')
+            print(f'Added: {deck_list_clean[selection]} -- {output}')
+            print('\n')
+        except IndexError:
+            sleep(0.1)
+            os.system('cls')
+            print('invalid input')
+        except ValueError:
+            sleep(0.1)
+            os.system('cls')
+            print('invalid inpu2t')
+        
+        
+
+def combo(card_obj_list):
+    # show list, create lists of combos
+    # currently just fenrir/rise + spell
+    add = []
+    output = []
+    # sub menu-view, create, return
+    while(True):
+        sleep(0.1)
+        os.system('cls')
+        print_menu(grouper_menu_options)
+        try:
+            option = int(input('Enter Option: '))
+        except ValueError:
+            sleep(0.1)
+            os.system('cls')
+            print("Invalid Option")
+            continue
+        if option == 1:
+            # create combo
+            sleep(0.1)
+            os.system('cls')
+            add = create_combo(card_obj_list)
+            if len(add) > 1:
+                output.append(add)
+        elif option == 2:
+            # view combos
+            sleep(0.1)
+            os.system('cls')
+            for i in range(len(output)):
+                print(output[i])
+            input("Viewing Combos. Press Enter to continue.")
+        # delete
+        elif option == 3:
+            sleep(0.1)
+            os.system('cls')
+            output = combo_delete(output)
+        elif option == 4:
+            # return
+            # save-refactor into json
+            sleep(0.1)
+            os.system('cls')
+            return
 
 # set list of objects as input
 def set_parameter(card_obj_list, output_path):
@@ -142,6 +212,7 @@ def set_parameter(card_obj_list, output_path):
             categorizer(card_obj_list, output_path)
         # create groups
         elif option == 2:
+            combo(card_obj_list)
             pass
         # return to main menu
         elif option == 3:

@@ -74,7 +74,7 @@ Side
 3 Solemn Judgment
 """
 
-a = [['Kashtiratheosis', 'Ash Blossom & Joyous Spring', 'Terraforming', 'Forbidden Lance', 'Pot of Prosperity'], 
+c = [['Kashtiratheosis', 'Ash Blossom & Joyous Spring', 'Terraforming', 'Forbidden Lance', 'Pot of Prosperity'], 
      ['Kashtiratheosis', 'Infinite Impermanence', 'Book of Moon', 'Kashtira Birth', 'Book of Moon'], 
      ['Pressured Planet Wraitsoth', 'Forbidden Lance', 'Infinite Impermanence', 'Infinite Impermanence', 'Kashtira Big Bang'], 
      ['Ash Blossom & Joyous Spring', 'Kashtiratheosis', 'Triple Tactics Talent', 'Dimension Shifter', 'Pressured Planet Wraitsoth'],
@@ -109,8 +109,14 @@ Trap
 ls = newtest2.split("\n")
 #print(ls)
 
-with open(f"results/test.csv", 'w') as file:
-        for line in a:
-                writer = csv.writer(file, lineterminator="\n")
-                writer.writerow(sorted(line))
+b = {'asdf': 1, 'fdsfa': 2, 'cvcv': 3}
 
+# with open(f"results/test.csv", 'w') as file:
+#         for key, value in b.items():
+#                 out = [key, value]
+#                 writer = csv.writer(file, lineterminator="\n")
+#                 writer.writerow(out)
+
+a = [1, 2, 3]
+a.append(None)
+print(a)

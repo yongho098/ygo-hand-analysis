@@ -127,13 +127,22 @@ def simulation(card_list, runs, hand_size):
             for line in results:
                 writer = csv.writer(file, lineterminator="\n")
                 writer.writerow(sorted(line))
+            writer.writerow(['Total Runs', runs])
         input("Exported Results to results Folder. Press Enter to continue.")
         sleep(0.1)
         os.system('cls')
     elif export_option == '2':
         # Just analysis
         export_name = input('Enter Export File Name: ')
-        pass
+        with open(f"results/{export_name}.csv", 'w') as file:
+            for key, value in analysis_dict.items():
+                out = [key, value]
+                writer = csv.writer(file, lineterminator="\n")
+                writer.writerow(out)
+            writer.writerow(['Total Runs', runs])
+        input("Exported Results to results Folder. Press Enter to continue.")
+        sleep(0.1)
+        os.system('cls')
     elif export_option == '3':
         # Both-most common
         export_name = input('Enter Export File Name: ')
@@ -141,6 +150,11 @@ def simulation(card_list, runs, hand_size):
             for line in results:
                 writer = csv.writer(file, lineterminator="\n")
                 writer.writerow(sorted(line))
+            writer.writerow('\n')
+            for key, value in analysis_dict.items():
+                out = [key, value]
+                writer.writerow(out)
+            writer.writerow(['Total Runs', runs])
         input("Exported Results to results Folder. Press Enter to continue.")
         sleep(0.1)
         os.system('cls')
