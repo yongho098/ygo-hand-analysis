@@ -104,12 +104,14 @@ def create_card():
                 card_object_list.append(new_card)
 
 def load_classification(card_obj_list, out_path):
-    with open(f"classification/{out_path}.json") as json_file:
-        classification_data = json.load(json_file)
-    for card in card_obj_list:
-        if card.name in classification_data:
-            card.card_type = classification_data[card.name][1]
-            card.subtype = classification_data[card.name][2]
+    if os.path.exists(f"classification/{out_path}.json"):
+        with open(f"classification/{out_path}.json") as json_file:
+            classification_data = json.load(json_file)
+        for card in card_obj_list:
+            if card.name in classification_data:
+                card.card_type = classification_data[card.name][1]
+                card.subtype = classification_data[card.name][2]
+        return card_obj_list
     return card_obj_list
 
 def deck_selector():
@@ -124,11 +126,11 @@ def deck_selector():
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("invalid input")
+            print("Invalid Input")
         if selection > len(options):
             sleep(0.1)
             os.system('cls')
-            print('invalid menu')
+            print('Invalid Input')
             continue
         else:
             # load deck
@@ -178,7 +180,7 @@ def deck_importer():
         return
     else:
         # tried to add invalid deck
-        input("invalid deck. press enter to continue")
+        input("Invalid Deck Format. Press Enter to continue")
         sleep(0.1)
         os.system('cls')
         return

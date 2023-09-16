@@ -1,97 +1,125 @@
-{
-    "Ash Blossom & Joyous Spring": [
-        3,
-        "",
-        ""
-    ],
-    "Called by the Grave": [
-        2,
-        "",
-        ""
-    ],
-    "Crossout Designator": [
-        1,
-        "",
-        ""
-    ],
+[
+  {
     "Dimension Shifter": [
-        2,
-        "",
-        ""
-    ],
-    "Exosister Arment": [
-        1,
-        "",
-        ""
-    ],
-    "Exosister Elis": [
-        3,
-        "Engine",
-        "Extender"
+      2,
+      "",
+      ""
     ],
     "Exosister Martha": [
-        3,
-        "Engine",
-        "Starter"
+      3,
+      "Engine",
+      "Starter"
     ],
-    "Exosister Pax": [
-        3,
-        "Engine",
-        "Starter"
-    ],
-    "Exosister Returnia": [
-        2,
-        "",
-        ""
-    ],
-    "Exosister Sophia": [
-        1,
-        "",
-        ""
-    ],
-    "Exosister Stella": [
-        2,
-        "",
-        ""
-    ],
-    "Exosister Vadis": [
-        1,
-        "",
-        ""
-    ],
-    "Infinite Impermanence": [
-        3,
-        "",
-        ""
-    ],
-    "Maxx \"C\"": [
-        3,
-        "",
-        ""
-    ],
-    "Necrovalley": [
-        2,
-        "",
-        ""
-    ],
-    "Pot of Prosperity": [
-        2,
-        "",
-        ""
+    "Exosister Elis": [
+      3,
+      "Engine",
+      "Extender"
     ],
     "Sakitama": [
-        3,
-        "",
-        ""
+      3,
+      "Engine",
+      "Extender"
+    ],
+    "Exosister Stella": [
+      2,
+      "Engine",
+      "Extender"
+    ],
+    "Exosister Sophia": [
+      1,
+      "",
+      ""
+    ],
+    "Ash Blossom & Joyous Spring": [
+      3,
+      "",
+      ""
+    ],
+    "Maxx \"C\"": [
+      3,
+      "",
+      ""
+    ],
+    "Pot of Prosperity": [
+      2,
+      "",
+      ""
     ],
     "Triple Tactics Talent": [
-        1,
-        "",
-        ""
+      1,
+      "",
+      ""
     ],
     "Triple Tactics Thrust": [
-        2,
-        "",
-        ""
+      2,
+      "",
+      ""
+    ],
+    "Called by the Grave": [
+      2,
+      "",
+      ""
+    ],
+    "Crossout Designator": [
+      1,
+      "",
+      ""
+    ],
+    "Exosister Arment": [
+      1,
+      "",
+      ""
+    ],
+    "Exosister Pax": [
+      3,
+      "Engine",
+      "Starter"
+    ],
+    "Necrovalley": [
+      2,
+      "",
+      ""
+    ],
+    "Exosister Returnia": [
+      2,
+      "",
+      ""
+    ],
+    "Exosister Vadis": [
+      1,
+      "",
+      ""
+    ],
+    "Infinite Impermanence": [
+      3,
+      "",
+      ""
     ]
-}
+  },
+  [
+    [
+      "Exosister Elis",
+      "Exosister Stella"
+    ],
+    [
+      "Exosister Elis",
+      "Sakitama"
+    ],
+    [
+      "Exosister Elis",
+      "Exosister Sophia"
+    ],
+    [
+      "Sakitama",
+      "Exosister Stella"
+    ],
+    [
+      "Sakitama",
+      "Exosister Sophia"
+    ],
+    [
+      "Exosister Stella",
+      "Exosister Sophia"
+    ]
+  ]
+]

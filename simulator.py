@@ -7,7 +7,8 @@ import json
 # runs the algorithm
 # displays results
 # take categorizations as well in input
-# import categorizations
+
+# import categorizations if youre going straight in here
 
 combo_data = []
 
@@ -35,8 +36,8 @@ def settings_menu():
         except ValueError:
             sleep(0.1)
             os.system('cls')
-            print("Invalid Option")
-            return
+            print("Invalid Input")
+            continue
         if option == 1:
             # number of runs
             sleep(0.1)
@@ -59,7 +60,7 @@ def settings_menu():
             sleep(0.1)
             os.system('cls')
             print('Invalid menu option')
-            continue
+            
     
 def analysis_func(local_list, combo):
     # make copy of list and edit to check
@@ -100,9 +101,9 @@ def simulation(card_list, runs, hand_size, combo):
                 'Hands with no Starters': 0,
                 'Hands with Garnets': 0,
                 'Average Starters in Hand': 0,
-                'Hands with 2 Card Combos': 0,
+                'Hands with a 2 Card Combo': 0,
                 '"Playable Hands"': 0,
-                '"Unplayable Hands': 0,
+                '"Unplayable Hands"': 0,
                 'Average Hand Playability': '0%'}
     results = []
     
@@ -121,11 +122,11 @@ def simulation(card_list, runs, hand_size, combo):
         if analysis_results[1] == 0:
             analysis_dict['Hands with no Starters'] += 1
         analysis_dict['Hands with Garnets'] += analysis_results[2]
-        analysis_dict['Hands with 2 Card Combos'] += analysis_results[4]
+        analysis_dict['Hands with a 2 Card Combo'] += analysis_results[4]
         if analysis_results[3] != 0:
             analysis_dict['"Playable Hands"'] += analysis_results[3]
         else:
-            analysis_dict['"Unplayable Hands'] += 1
+            analysis_dict['"Unplayable Hands"'] += 1
         playable_percent = analysis_dict['"Playable Hands"']/runs
         analysis_dict['Average Hand Playability'] = f'{playable_percent * 100}%'
         print(local_result)
@@ -142,7 +143,7 @@ def simulation(card_list, runs, hand_size, combo):
 
     # analysis here?
     print_menu(results_menu_options)
-    export_option = input("Enter Option: ")
+    export_option = input("Enter Option, Press Enter to Return: ")
     if export_option == '1':
         # Just data
         export_name = input('Enter Export File Name: ')
@@ -190,17 +191,31 @@ def simulation(card_list, runs, hand_size, combo):
         os.system('cls')
         
         
-def read_parameter(out_path):
-    # loading combo data
+def read_parameter_combo(out_path):
+    # loading combo data, load classifications as well?
     if os.path.exists(f"classification/{out_path}.json"):
         with open(f"classification/{out_path}.json") as json_file:
             classification_data = json.load(json_file)
         return classification_data[1]
         
-
+def read_parameter(card_list, out_path):
+    # meant for runtime
+    # read json and recreate card items, force when loading new decklist?
+    # maybe just toss in global
+    if os.path.exists(f"classification/{out_path}.json"):
+        with open(f"classification/{out_path}.json") as json_file:
+            classification_data = json.load(json_file)
+        for card in card_list:
+            if card.name in classification_data[0]:
+                card.card_type = classification_data[0][card.name][1]
+                card.subtype = classification_data[0][card.name][2]
+        return card_list
+    else:
+        return card_list
 
 def simulator(card_object_list, output_path):
-    combo_data = read_parameter(output_path)    
+    card_obj_list = read_parameter(card_object_list, output_path)
+    combo_data = read_parameter_combo(output_path)    
     while(True):
         print_menu(simulator_menu_options)
         try:

@@ -34,6 +34,7 @@ def read_parameter(card_list, out_path):
 
 def sub_categorizer(card_obj_list):
     # secondary menu for categorizing
+    # have visiual indicators of what youre categorizing
     card_type = ''
     card_subtype = ''
     while(True):
@@ -111,15 +112,28 @@ def categorizer(card_obj_list, output_path):
         pass
 
 def combo_delete(current):
+     sleep(0.1)
+     os.system('cls')
      while(True):
-        sleep(0.1)
-        os.system('cls')
+         # input cleaning
+        
         for i in range(len(current)):
             print(f'{i+1}: {current[i]}')
         print('\n')
-        selection = int(input('Input Combo to delete, Input 0 to return: ')) - 1
+        try:
+            selection = int(input('Input Combo to delete, Input 0 to return: ')) - 1
+        except ValueError:
+            sleep(0.1)
+            os.system('cls')
+            print("Invalid Option")
+            continue
         if selection == -1:
             return current
+        elif selection >= len(current):
+            sleep(0.1)
+            os.system('cls')
+            print("Invalid Option")
+            continue
         del current[selection]
 
 def create_combo(card_obj_list):
